@@ -1,0 +1,8 @@
+#!/bin/bash
+n=16
+num_samples=100000//16
+for dist_type in gauss_largebias uniform_smallbias gauss_smallbias uniform_largebias gauss_largeweight_largebias uniform_largeweight_largebias ; do 
+    #addqueue -q bigmem -m 3 -n 1x$n -s ./run_dist_comp $num_samples $dist_type $n
+    echo $dist_type
+    ./run_dist_comp $num_samples $dist_type $n
+done

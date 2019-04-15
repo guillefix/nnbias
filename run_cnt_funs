@@ -1,0 +1,32 @@
+#!/bin/bash
+#export SPARK_HOME=/usr/local/shared/spark/2.2.1/spark-2.2.1-bin-hadoop2.7
+#export JAVA_HOME="/usr/bin:/usr/lib"
+#./start-spark
+#export SPARK_WORKER_INSTANCES=25
+
+#spark-submit --conf spark.ui.enabled=false --total-executor-cores $1 analyze_freqs_paral.py
+
+#sh /usr/local/shared/spark/2.2.1/spark-2.2.1-bin-hadoop2.7/sbin/start-all.sh
+
+#spark-submit --total-executor-cores 100 --conf "spark.ui.enabled=false" analyze_freqs_paral.py
+
+#export PYTHONPATH=~/.local/lib/
+#export IPYTHONDIR=/tmp
+#
+#echo "Launching controller"
+#python3 ~/.local/lib/python3.6/site-packages/ipyparallel/apps/ipcontrollerapp.py --ip='*' &
+#sleep 10
+#
+#srun python3 ~/.local/lib/python3.6/site-packages/ipyparallel/apps/ipengineapp.py &
+#sleep 25
+#
+#echo "Launching job"
+#~/.local/bin/ipython3 $1
+#
+#echo "Done!"
+
+export MASTER=spark://comp34:7077
+#export PYTHONPATH="${PYTHONPATH}:/home/guillefix/bias/nn_bias"
+export PYTHONPATH=/users/guillefix/.local/lib/
+
+python3 cnt_funs_spark.py $@

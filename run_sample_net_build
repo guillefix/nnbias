@@ -1,0 +1,7 @@
+#!/bin/bash
+./build_in_hydra.sh
+./sample_net_no_train_2hl_testing test 100000
+file="$(ls -lt sampled_funs/ | head -n 2 | tail -n 1 | awk '{print $9}')"
+file2="$(ls -lt sampled_funs/ | head -n 2 | tail -n 1 | awk '{print $9}' | tr '.' '_')"
+time LANG=C sort -s sampled_funs/${file} | uniq -c | sort -srnk 1 >> ${file2}_ranked.txt
+cat ${file2}_ranked.txt | file2=${file2} gnuplot plot.gp

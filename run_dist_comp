@@ -1,0 +1,14 @@
+#!/bin/bash
+#module load gnuplot
+n=$3
+dist_type=$2
+for i in `seq 1 $((n-1))`; do
+    ./sample_net_no_train_2hl_testing dist_comp_${i} $1 $2 &
+done
+./sample_net_no_train_2hl_testing dist_comp_${i} $1 $2
+#file="$(ls -lt sampled_funs/ | head -n 2 | tail -n 1 | awk '{print $9}')"
+#file2="$(ls -lt sampled_funs/ | head -n 2 | tail -n 1 | awk '{print $9}' | tr '.' '_')"
+#cat sampled_funs/dist_comp*${dist_type}*.txt > all_samples_${dist_type}.txt
+LANG=C sort -s sampled_funs/dist_comp*${dist_type}*.txt | uniq -c | sort -srnk 1 >> "all_samples_${dist_type}_ranked.txt"
+cat "all_samples_${dist_type}_ranked.txt" | file2="${dist_type}_rank_plt.png" gnuplot plot.gp
+

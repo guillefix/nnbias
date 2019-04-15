@@ -1,0 +1,5 @@
+#!/bin/bash
+prefix=1
+suffix=abi_sample_net_2hl.txt
+folder=abi_samples
+find ${folder} -name "${prefix}_*_${1}_${suffix}" | xargs cat | awk 'BEGIN{e=0;t=0} $0!~/^\#[0,1]*/ {e+=$2;t+=1}END{printf e/t}'

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+while read fun 
+do 
+        #if [ $(($i % 5)) -eq 0 ] 
+        #then 
+                echo $fun 
+                addqueue -n 20 -q "short" -s -m 1 ./run_sample_net 1 5000000 $fun 
+        #fi 
+        #i=$(($i+1)) 
+done < "funs_tmp.txt" 
+

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#module unload mpich3
+module load gcc/5.4.0
+module load armadillo
+module load openblas/openblas
+module load openmpi/1.8.7-gcc
+
+#/usr/local/shared/openmpi/1.8.7-gcc/bin/mpirun ./sample_net_no_train $1 $2
+#/usr/local/shared/openmpi/1.8.7-gcc/bin/mpirun -n $1 ./sample_net_no_train_2hl $2 $3
+#./sample_net_no_train_2hl $1 $2
+#/usr/local/shared/openmpi/1.8.7-gcc/bin/mpirun ./sample_net_no_train_1hl $1 $2
+/usr/local/shared/openmpi/1.8.7-gcc/bin/mpirun ./sample_net_no_train_0hl $1 $2
+

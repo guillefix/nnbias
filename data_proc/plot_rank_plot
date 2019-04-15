@@ -1,0 +1,5 @@
+#!/bin/bash
+
+module load gnuplot
+
+cat $1 | gnuplot plot.gp

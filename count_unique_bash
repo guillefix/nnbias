@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/head -n -6 big_chonker.txt | tail -n+8 | awk '{A[$1]=A[$1]+$2}END{for(i in A)print i,A[i]}' >> full_sample_unique.txt

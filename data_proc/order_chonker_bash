@@ -1,0 +1,4 @@
+#!/bin/bash
+#/usr/bin/head -n -6 big_chonker.txt | tail -n+8 | awk '$2>1 {print $2}' | sort -rn -T /users/guillefix/tmp >> ranks_nosinglesample.txt
+#/usr/bin/head -n -6 big_chonker.txt | tail -n+8 | awk '{print $2}' | sort -rn -T /users/guillefix/tmp >> ranks_allsamples.txt
+/usr/bin/head -n -6 big_chonker.txt | tail -n+8 | sort -k 2 -rn -T /users/guillefix/tmp >> fun_freqs_allsamples.txt

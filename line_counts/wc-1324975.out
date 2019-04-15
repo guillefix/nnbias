@@ -1,0 +1,14 @@
+=========================================================
+Job submitted date = Sun Feb 17 14:24:33 GMT 2019
+1 nodes ( processes per node )
+1 hosts used: comp12
+Job output begins
+-----------------
+
+40000000 sampled_funs/1_242_full_sample_net_2hl.txt
+---------------
+Job output ends
+=========================================================
+PBS job: finished date = Sun Feb 17 15:31:50 GMT 2019
+Total run time : 0 Hours 33 Minutes 56 Seconds
+=========================================================

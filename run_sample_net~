@@ -1,0 +1,9 @@
+#!/bin/bash
+
+module unload mpich3
+module load gcc/5.4.0
+module load armadillo
+module load openblas/openblas
+module load openmpi/1.8.7-gcc
+module list
+/usr/local/shared/openmpi/1.8.7-gcc/bin/mpirun ./sample_net
