@@ -5,6 +5,7 @@
 #include <vector>
 #include <armadillo>
 #include <bitset>
+#include <boost/dynamic_bitset.hpp>
 
 // #include <boost/algorithm/string/join.hpp>
 // #include "split.h"
@@ -13,12 +14,16 @@ using namespace std;
 using namespace arma;
 
 template <typename T>
-vec get_bits(T n, int size) {
+vec get_base_expansion(int base, int size, T n, bool center) {
   vec output = zeros<vec>(size);
   int i = 0;
   while (n > 0) {
-    output(i) = n%2;
-    n /= 2;
+    if (center) {
+        output(i) = n%base - base/2;
+    } else {
+        output(i) = n%base;
+    }
+    n /= base;
     ++i;
   }
   return output;
@@ -44,10 +49,11 @@ vector<double> slice(const vector<double>& v, int start=0, int end=-1) {
     return nv;
 }
 
-bitset<128> pheno(const vector<double> & nn1)
+boost::dynamic_bitset<> pheno(const int base, const int n_input, const vector<double> & nn1, bool center)
 {
 
-int n_input = 7, n_out = 1;
+//int n_input = 7, n_out = 1;
+int n_out = 1;
 
 int first = 0;
 int last = n_input*n_out;
@@ -64,15 +70,46 @@ vec zeros_1 = zeros<vec>(n_out);
 // vec zeros_2 = zeros<vec>(nh_2);
 
 //vector<int> output((int)pow(2,n_input));
-bitset<128> output;
+boost::dynamic_bitset<> output(pow(base,n_input));
 
-for (int i = 0; i < pow(2,n_input); i++) {
-  vec input = get_bits(i, n_input);
+for (int i = 0; i < pow(base,n_input); i++) {
+  vec input = get_base_expansion(base, n_input, i, center);
   vec out = W1 * input + b1;
   // out.print();
   out = arma::floor((arma::sign(out)+1)/2);
   if ((bool)out(0)) output.set(i);
   else output.reset(i);
+}
+
+return output;
+
+}
+
+
+int num_above_boundary(const int base, const int n_input, const vector<double> & nn1, bool center)
+{
+
+//int n_input = 7, n_out = 1;
+int n_out = 1;
+
+int first = 0;
+int last = n_input*n_out;
+mat W1(slice(nn1,first,last));
+W1=reshape(W1,n_out,n_input);
+
+first = last;
+last = first + n_out;
+vec b1(slice(nn1,first,last));
+
+vec zeros_1 = zeros<vec>(n_out);
+
+int output = 0;
+
+for (int i = 0; i < pow(base,n_input); i++) {
+  vec input = get_base_expansion(base, n_input, i, center);
+  vec out = W1 * input + b1;
+  out = arma::floor((arma::sign(out)+1)/2);
+  if ((bool)out(0)) output += 1;
 }
 
 return output;

@@ -1981,3 +1981,14 @@ to mpirun due to a lack of common network interfaces and/or no
 route found between them. Please check network connectivity
 (including firewalls and network routing requirements).
 --------------------------------------------------------------------------
+srun: error: slurm_receive_msg: Socket timed out on send/recv operation
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: Timed out waiting for job step to complete
+srun: error: slurm_receive_msg: Socket timed out on send/recv operation
+---------------
+Job output ends
+=========================================================
+PBS job: finished date = Mon May 13 23:30:19 BST 2019
+Total run time : 966 Hours 13 Minutes 43 Seconds
+=========================================================
+slurmstepd: slurm_receive_msg: Socket timed out on send/recv operation

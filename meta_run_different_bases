@@ -1,0 +1,19 @@
+#!/bin/bash
+
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 3 2
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 3 3
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 3 4 
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 3 5
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 3 6
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 3 7
+addqueue
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 4 2
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 4 3
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 4 4
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 4 5
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 4 6
+addqueue
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 5 2
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 5 3
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 5 4
+addqueue -n 250 ./count_above_perceptron_boundary perceptron_sample/ 40000000 5 5

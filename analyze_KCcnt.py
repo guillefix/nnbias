@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 n = 7
 disc_bits = 3
 nI = disc_bits*(n+1)
-d = pd.read_csv("KCcnt_"+str(disc_bits)+"_full_enum_discrete_weights_net_0hl.txt", header=None, names=["Kout","KInMin","KInMax","KInMean","freq"],delim_whitespace=True)
-d = pd.read_csv("KCcnt_plus_"+str(disc_bits)+"_full_enum_discrete_weights_net_0hl.txt", header=None, dtype={"out":"str","minIn":"str","maxIn":"str"}, names=["out","minIn","maxIn","Kout","KInMin","KInMax","KInMean","freq"],delim_whitespace=True)
+d = pd.read_csv("results/KCcnt_"+str(disc_bits)+"_full_enum_discrete_weights_net_0hl.txt", header=None, names=["Kout","KInMin","KInMax","KInMean","freq"],delim_whitespace=True)
+# d = pd.read_csv("KCcnt_plus_"+str(disc_bits)+"_full_enum_discrete_weights_net_0hl.txt", header=None, dtype={"out":"str","minIn":"str","maxIn":"str"}, names=["out","minIn","maxIn","Kout","KInMin","KInMax","KInMean","freq"],delim_whitespace=True)
 d = d.sort_values(by="Kout",ascending=False)
 
 d["KIMin-KInMax"] = d["KInMax"] - d["KInMin"]
@@ -87,11 +87,15 @@ d3 = d.groupby(["KIMin-KInMax","freq"],as_index=False).mean()
 d4 = d.groupby(["n-KInMax","logP0-logP"],as_index=False).mean()
 d4 = d.groupby(["KInMean","logP0-logP"],as_index=False).mean()
 d4 = d.groupby(["Kout","logP0-logP"],as_index=False).mean()
+d5= d.groupby(["Kout","KInMin"],as_index=False).mean()
 
 d1.plot.scatter("Kout","prob",s=3,c="KInMax",colormap='viridis',logy=True)
 plt.savefig("Kout_freq_KInMax_largeKInMaxlast_perceptron_"+str(n)+"_"+str(disc_bits)+"bitweights_bias_full_enum.png")
 
 # d.head(1000000)
+d5.plot.scatter("Kout","KInMin",s=3,c="freq",colormap='viridis')
+plt.savefig("Kout_KInMean_perceptron_"+str(n)+"_"+str(disc_bits)+"bitweights_bias_full_enum.png")
+
 %matplotlib
 len(d)
 d1.plot.scatter("Kout","prob",s=3,c="KInMax",colormap='viridis',logy=True)
@@ -121,6 +125,7 @@ d1.plot.scatter("n-KInMax","logP0-logP",s=7,c="Kout",colormap='viridis',logy=Fal
 plt.savefig("logP0-logP_mean_n-KInMax_perceptron_"+str(n)+"_"+str(disc_bits)+"bitweights_bias_full_enum.png")
 # d4.plot.scatter("Kout","logP0-logP",s=7,c="Kout",colormap='viridis',logy=False)#,ylim=[min(d["logP0-logP"]),1])
 d4.plot.scatter("KInMean","logP0-logP",s=7,c="Kout",colormap='viridis',logy=False)#,ylim=[min(d["logP0-logP"]),1])
+plt.savefig("logP0-logP_n-KInMean_perceptron_"+str(n)+"_"+str(disc_bits)+"bitweights_bias_full_enum.png")
 d4.plot.scatter("Kout","logP0-logP",s=7,c="Kout",colormap='viridis',logy=False)#,ylim=[min(d["logP0-logP"]),1])
 
 import matplotlib.pyplot as plt
