@@ -88,6 +88,50 @@ for (int i = 0; i < pow(2,n_input); i++) {
 return output;
 
 }
+int num_above_boundary(const int n_input, const vector<double> & nn1)
+{
+
+int nh_1 = 40, n_out = 1;
+
+int first = 0;
+int last = n_input*nh_1;
+mat W1(slice(nn1,first,last));
+W1=reshape(W1,nh_1,n_input);
+
+first = last;
+last = first + nh_1;
+vec b1(slice(nn1,first,last));
+
+first = last;
+last = first + nh_1*n_out;
+mat W2(slice(nn1,first,last));
+W2=reshape(W2,n_out,nh_1);
+
+first = last;
+last = first + n_out;
+vec b2(slice(nn1,first,last));
+
+// b3.print();
+
+vec zeros_1 = zeros<vec>(nh_1);
+// vec zeros_2 = zeros<vec>(nh_2);
+
+//vector<int> output((int)pow(2,n_input));
+int output = 0;
+
+for (int i = 0; i < pow(2,n_input); i++) {
+  vec input = get_bits(i, n_input);
+  vec h1 = W1 * input + b1;
+  h1 = arma::max(zeros_1,h1);
+  vec out = W2 * h1 + b2;
+  // out.print();
+  out = arma::floor((arma::sign(out)+1)/2);
+  if ((bool)out(0)) output += 1;
+}
+
+return output;
+
+}
 
 int dist(vector<int> p1, vector<int> p2) {
   if (p1.size() != p2.size()) {

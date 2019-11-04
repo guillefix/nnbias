@@ -1,1 +1,36 @@
+
+##sampling functions##
+
+#get the funs:
+a -n 250 ./sample_funs -p sampled_funs/small_sample -N 40000 --sigmaw 1.0 --sigmab 0.0 --arch 7,1;
+#compute LZs and freqs:
+a -m 20 '/bin/cat sampled_funs/*_2_7_1_1.000000_0.000000_fun_samples.txt | ./KCcnt_simple 2_7_1_1.000000_0.000000_fun_samples.txt'
+#compute freqs only
+a -m 20 '/bin/cat sampled_funs/small_sample_*_2_7_40_1_4.000000_0.000000_centered_fun_samples.txt | sort | uniq -c | sort -nrk1 > small_sample_2_7_40_1_4.000000_0.000000_centered_fun_samples.txt'
+
+############
+
+
+# compute probabilities from perceptron samples for general square lattices in positive octant, first number in filename is base, second is dimension
 cat perceptron_sample/3_4_*_perceptron_counts.txt | awk '{a[$1]=a[$1]+$2}END{for (i in a)print i,a[i]/10000000000}'
+
+# combine t count samples for neural net samples I got
+cat nn_t_counts/* | awk '{F[$1]+=$2} END { for (i in F) print i,F[i]}' > 2_7_1hl_t_counts.txt
+
+# get new t count samples
+#a -n 250 -m 1 ./count_above_boundary nn_t_counts/bias1.0_ 400000 7 1
+# see sript for new
+
+#get differences
+awk '{print $2}' 2_7_1hl_t_counts.txt | awk '
+    NR == 1{old = $1; next}     # if 1st line 
+    {print $1 - old; old = $1}  # else...
+' | head -n 64
+
+# compute the predicted probability by summing over probabilities of all the minicones (it seems to match the above, so theory works)
+cat 0_0_full_sample_net_0hl.txt | sort | uniq -c | sort -k2 | awk '$3==23 {s+=$1} END {print s/1000000}'
+# generate sample to compute the above
+./sample_perceptron 0 1000000 5 3
+
+# see how many functions per t there are 
+cat 0_0_full_sample_net_0hl.txt | sort | uniq | sort -nk2 | awk '{print $2}' |uniq -c| less

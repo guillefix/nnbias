@@ -1,0 +1,89 @@
+#!/bin/bash
+
+##Layer sweeps##
+#10^8 samples#
+
+#sigmaw=4.000000
+sigmaw=1.000000
+#sigmab=20.000000
+sigmab=0.100000
+n=7
+activation=relu
+weight_dist=gaussian
+
+###Fun samples###
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 4000000 --activation ${activation} --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 400000 --activation ${activation} --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,1 --weight_dist ${weight_dist} --centered;
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 40000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 400000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 400000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,40,40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 4000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,40,40,40,40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 4000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,40,40,40,40,40,40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 4000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,40,40,40,40,40,40,40,40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 4000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,1 --weight_dist ${weight_dist};
+#addqueue -n 250 ./sample_funs -p sampled_funs/ -N 4000 --activation relu --sigmaw ${sigmaw} --sigmab ${sigmab} --arch ${n},40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,1 --weight_dist ${weight_dist};
+
+###LZ complexity###
+#addqueue -m 20 '/bin/cat sampled_funs/*_2_7_1_1.000000_0.000000_relu_fun_samples.txt | ./KCcnt_simple relu_2_7_1_1.000000_0.000000_relu_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/*_2_7_40_1_1.000000_0.000000_relu_fun_samples.txt | ./KCcnt_simple relu_2_7_40_1_1.000000_0.000000_relu_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/*_2_7_40_40_1_1.000000_0.000000_relu_fun_samples.txt | ./KCcnt_simple relu_2_7_40_40_1_1.000000_0.000000_relu_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/*_2_7_40_40_40_40_40_1_1.000000_0.000000_relu_fun_samples.txt | ./KCcnt_simple relu_2_7_40_40_40_40_40_1_1.000000_0.000000_relu_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/*_2_7_40_40_40_40_40_40_40_40_1_1.000000_0.000000_relu_fun_samples.txt | ./KCcnt_simple relu_2_7_40_40_40_40_40_40_40_40_1_1.000000_0.000000_relu_fun_samples.txt'
+
+###Frequencies only###
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_1_'${sigmaw}'_'${sigmab}'_'${activation}'_centered_fun_samples.txt | sort | uniq -c | sort -nrk1 > _2_'${n}'_1_'${sigmaw}'_'${sigmab}'_centered_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_1_'${sigmaw}'_'${sigmab}'_'${activation}'_fun_samples.txt | sort | uniq -c | sort -nrk1 > _2_'${n}'_1_'${sigmaw}'_'${sigmab}'_centered_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_centered_fun_samples.txt | sort | uniq -c | sort -nrk1 > '${activation}'_2_'${n}'_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_centered_fun_samples.txt'
+
+addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_1_'${sigmaw}'_'${sigmab}'_relu_fun_samples.txt | sort | uniq -c | sort -nrk1 > ${activation}_2_'${n}'_40_40_1_'${sigmaw}'_'${sigmab}'_relu_fun_samples.txt'
+
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_1_${sigmaw}_${sigmab}_centered_fun_samples.txt | sort | uniq -c | sort -nrk1 > ${activation}_2_'${n}'_40_40_40_40_40_1_${sigmaw}_${sigmab}_centered_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_40_40_40_1_${sigmaw}_${sigmab}_centered_fun_samples.txt | sort | uniq -c | sort -nrk1 > ${activation}_2_'${n}'_40_40_40_40_40_40_40_40_1_${sigmaw}_${sigmab}_centered_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_fun_samples.txt | sort | uniq -c | sort -nrk1 > '${activation}'_2_'${n}'_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_fun_samples.txt | sort | uniq -c | sort -nrk1 > '${activation}'_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_fun_samples.txt | sort | uniq -c | sort -nrk1 > '${activation}'_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_fun_samples.txt | sort | uniq -c | sort -nrk1 > '${activation}'_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_fun_samples.txt'
+#addqueue -m 20 '/bin/cat sampled_funs/_*_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_'${activation}'_fun_samples.txt | sort | uniq -c | sort -nrk1 > '${activation}'_2_'${n}'_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_'${sigmaw}'_'${sigmab}'_fun_samples.txt'
+
+
+###T counts###
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 0.01 --bshift -1.5 --arch 7,1 --centered;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 0.01 --bshift -1.0 --arch 7,40,1 --centered;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 400000 --sigmaw 1.0 --sigmab 0.0 --arch 7,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 400000 --sigmaw 1.0 --sigmab 0.0 --arch 7,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 400000 --sigmaw 1.0 --sigmab 0.0 --arch 7,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 400000 --sigmaw 1.0 --sigmab 0.0 --arch 7,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 400000 --sigmaw 1.0 --sigmab 0.0 --arch 7,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,1;
+#addqueue -n 250 ./count_above_boundary -p nn_t_counts/sigmab_sweep_ -N 4000 --sigmaw 1.0 --sigmab 1.0 --arch 7,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,1;
+
+###Aggregate T counts###
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*0.0* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > sigmabsweep_2_7_40_1_0.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*0.5* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > sigmabsweep_2_7_40_1_0.5_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*1.0* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > sigmabsweep_2_7_40_1_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*2.0* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > sigmabsweep_2_7_40_1_2.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*5.0* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > sigmabsweep_2_7_40_1_5.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*10.0* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > sigmabsweep_2_7_40_1_10.0_t_counts.txt'
+
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_1_1.000000_0.010000_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_1_1.0_0.01_bshift-1.5_centered_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_1_1.000000_0.010000_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_1_1.0_0.01_bshift-1.5_centered_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_1_1.000000_0.000000_relu_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_1_1.0_0.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_1_1.000000_0.000000_relu_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_1_1.0_0.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_1_1.000000_0.000000_relu_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_1_1.0_0.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_1_1.000000_0.000000_relu_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_1_1.0_0.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_1_1.000000_0.000000_relu_* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_1_1.0_0.0_t_counts.txt'
+#
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'
+#addqueue -m 20 '/bin/cat nn_t_counts/sigmab_sweep__*7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.000000_1.000000_relu* | awk '"'"'{F[$1]+=$2} END { for (i in F) print i,F[i]}'"'"' > _2_7_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_40_1_1.0_1.0_t_counts.txt'

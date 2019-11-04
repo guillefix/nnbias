@@ -6,3 +6,4 @@ old/
 lapack.tgz
 perceptron_sample/
 *.out
+*.txt

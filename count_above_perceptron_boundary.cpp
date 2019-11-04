@@ -21,6 +21,7 @@ int main(int argc, char const *argv[]) {
   int base = stoi(argv[3]);
   int n_input = stoi(argv[4]);
   int n_out = 1;
+  bool center = false;
 
   int total_params = n_input*n_out + n_out; 
 
@@ -47,7 +48,7 @@ int main(int argc, char const *argv[]) {
     gen_b = sigmab*arma::randn<vec>( n_out );
     gen.insert(gen.end(),gen_b.begin(), gen_b.end()); 
 
-    t = num_above_boundary(base, n_input, gen);
+    t = num_above_boundary(base, n_input, gen, center);
     fracs[t] += 1;
 
     gen.clear();
