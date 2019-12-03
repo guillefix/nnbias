@@ -46,6 +46,17 @@ typename std::bitset<size> random_bitset_noreplace () {
     return result;
 }
 
+  float entropy(bitset<128> fun) {
+    int count = 0;
+    for (int j = 0; j < 128; j++) {
+      if ((bool)fun[j]) count += 1;
+    }
+    float p1 = count/128.0;
+    float p2 = 1-count/128.0;
+    return -p1*std::log(p1)-p2*std::log(p2);
+  }
+
+
 int main(int argc, char const *argv[]) {
   //string index = getenv("SLURM_ARRAY_TASK_ID");
   int world_rank;
@@ -65,35 +76,34 @@ int main(int argc, char const *argv[]) {
   // vector<bool> p1;
   string fun_string = argv[2];
   string comp = argv[3];
-  //string training_set_string = argv[4];
+  string training_set_string = argv[4];
   bitset<128> fun (fun_string);
-  //bitset<128> training_set (training_set_string);
-  bitset<128> training_set = random_bitset_noreplace<128,64>();
+  bitset<128> training_set (training_set_string);
+  //bitset<128> training_set = random_bitset_noreplace<128,64>();
   bitset<128> found_fun;
   bitset<128> agreements;
   string line;
-  float entropy(fun) {
-    int count = 0;
-    for (int j = 0; j < 128; j++) {
-      if ((bool)fun[j]) count += 1;
-    }
-    float p1 = count/128.0;
-    float p2 = 1-count/128.0;
-    return -p1*std::log(p1)-p2*std::log(p2)
-  }
+
 
   ofstream datafile;
-  datafile.open (string("abi_samples/")+string(argv[1])+string("_")+to_string(world_rank)+string("_")+comp+string("_")+string("abi_sample_net_2hl.txt"));
+  datafile.open (string("abi_samples/")+string("abi_sample_")+to_string(world_rank)+string("_")+comp+string("_")+string(argv[1]));
   datafile << "#" << training_set << "\n" << "#" << fun << "\n";
   //ifstream samplefile(argv[4]);
-  ifstream samplefile(string("sampled_funs/")+string(argv[1])+string("_")+to_string(world_rank)+string("_")+string("full_sample_net_2hl.txt"));
+  ifstream samplefile(string("results/")+argv[1]);
   if (samplefile.is_open()) {
-  while ( getline(samplefile,line)) {
-    found_fun = bitset<128>(line); 
+  while ( getline(samplefile, line)) {
+    std::string  data;
+    std::stringstream linestream(line);
+    std::getline(linestream, data, ' ');
+    string comp;
+    int freq;
+    linestream >> comp >> freq;
+    //samplefile >> comp >> freq;
+    found_fun = bitset<128>(data); 
     //cout << found_fun.to_string() << "\n";
     agreements = ~(fun^found_fun);
     if ( ((~training_set)|agreements).all() ) {
-      datafile << found_fun << "\t" << 1-(float)(agreements.count()-m)/(128-m) << "\n";
+      datafile << found_fun << "\t" << 1-(float)(agreements.count()-m)/(128-m) << "\t" << entropy(found_fun) << "\t" << freq << "\n";
     }
   }
   samplefile.close();

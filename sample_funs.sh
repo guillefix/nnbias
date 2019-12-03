@@ -1,6 +1,6 @@
 #!/bin/bash -l
 echo =========================================================   
-echo Job submitted  date = Fri Oct 11 15:30:25 BST 2019      
+echo Job submitted  date = Thu Nov 14 22:35:01 GMT 2019      
 date_start=`date +%s`
 echo $SLURM_JOB_NUM_NODES nodes \( $SMP processes per node \)        
 echo $SLURM_JOB_NUM_NODES hosts used: $SLURM_JOB_NODELIST      
@@ -17,7 +17,7 @@ export MV2_SMP_USE_CMA=0
 
 #which mpirun
 export OMP_NUM_THEADS=1
- /usr/local/shared/slurm/bin/srun -u -n 250 --mpi=pmi2 --mem-per-cpu=100 nice -n 10 /users/guillefix/bias/nn_bias/bias_cpp/./sample_funs -p sampled_funs/ -N 40000 --activation relu --sigmaw 1.000000 --sigmab 0.100000 --arch 7,40,40,1 --weight_dist gaussian
+ /usr/local/shared/slurm/bin/srun -u -n 250 --mpi=pmi2 --mem-per-cpu=100 nice -n 10 /users/guillefix/bias/nn_bias/bias_cpp/./sample_funs -p sampled_funs/ -N 400000 --activation relu --sigmaw 1.000000 --sigmab 0.000000 --arch 7,1 --weight_dist uniform
 # If we've been checkpointed
 #if [ -n "${DMTCP_CHECKPOINT_DIR}" ]; then
   if [ -d "${DMTCP_CHECKPOINT_DIR}" ]; then
